@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Header from './components/Header';
+import BlogList from './components/BlogList';
+import AddPost from './components/AddPost';
+import './App.css'; // Import the CSS file
 
 function App() {
+  const [posts, setPosts] = useState([
+    { 
+      title: 'First Post', 
+      content: 'This is the first blog post.', 
+      image: 'paris.png' 
+    },
+    { 
+      title: 'Second Post', 
+      content: 'This is the second blog post.', 
+      image: 'tajmahal.png' 
+    },
+  ]);
+
+  const addPost = (post) => {
+    setPosts([...posts, post]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header postCount={posts.length} />
+      <AddPost onAdd={addPost} />
+      <BlogList posts={posts} />
     </div>
   );
 }
